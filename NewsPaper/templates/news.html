@@ -1,0 +1,32 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+   <h1>Все новости</h1>
+   <h3>Сегодня: {% current_time '%d %b %Y' %}</h3>
+   <h3>Количество новостей: {{ news|length }}</h3>
+
+       <table>
+           <tr>
+               <td>   Заголовок   </td>
+               <td>   Дата публикации   </td>
+               <td>   Описание   </td>
+           </tr>
+
+
+           {% for post in news %}
+           <tr>
+               <td>{{ post.title|censor }}</td>
+               <td>{{ post.dateCreation|date:'d M Y' }}</td>
+               <td>{{ post.text|truncatewords:20|censor }}</td>
+           </tr>
+           {% endfor %}
+       </table>
+
+{% endblock content %}
